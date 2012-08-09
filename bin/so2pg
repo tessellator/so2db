@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'so2pg'
+
+PgImporter.import_from_argv(ARGV)
