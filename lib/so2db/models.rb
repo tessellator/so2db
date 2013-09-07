@@ -86,17 +86,20 @@ module SO2DB::Models
 
   # Infrastructure.  Do not call this from your code.
   class Lookup
+    attr_reader :map
 
-    @@map = { "badges" => :Badge, "comments" => :Comment, 
-              "posthistory" => :PostHistory, "posts" => :Post, "users" => :User,
-              "votes" => :Vote }
-
-    def self.find_class(file_name)
-      Object.const_get("SO2DB").const_get("Models")
-      .const_get(@@map[file_name].to_s)
+    def initialize
+      @map = { "badges" => :Badge, "comments" => :Comment, 
+               "posthistory" => :PostHistory, "posts" => :Post, 
+               "users" => :User, "votes" => :Vote }
     end
 
-    def self.get_required_attrs(file_name)
+    def find_class(file_name)
+      Object.const_get("SO2DB").const_get("Models")
+        .const_get(map[file_name].to_s)
+    end
+
+    def get_required_attrs(file_name)
       raw = find_class(file_name).send :exported_fields
       return raw.map {|f| f.to_s.camelize.sub(/Guid/, 'GUID')}
     end

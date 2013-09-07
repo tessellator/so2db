@@ -30,10 +30,11 @@ module SO2DB
   class Formatter
 
     # Infrastructure.  Do not call this from your code.
-    def initialize(path = '', delimiter = 11.chr.to_s)
+    def initialize(path = '', delimiter = 11.chr.to_s, lookup = Models::Lookup.new)
       @delimiter = delimiter
       @path = path
-      @name = "row"
+      @lookup = lookup
+      @name = 'row'
     end
 
     # Formats a file and prints the formatted output to the outstream.
@@ -49,7 +50,7 @@ module SO2DB
     #   >> end
     def format(outstream)
       file = File.basename(@path, '.*')
-      req_attrs = Models::Lookup::get_required_attrs(file)
+      req_attrs = @lookup.get_required_attrs(file)
 
       format_from_stream(File.open(@path), req_attrs, outstream)
     end
@@ -69,7 +70,7 @@ module SO2DB
     #   => badges(id,date,name,user_id)
     def value_str
       file = File.basename(@path, '.*')
-      o = Models::Lookup::find_class(file)
+      o = @lookup.find_class(file)
 
       table = o.table_name
       values = o.exported_fields.sort.join(",")
