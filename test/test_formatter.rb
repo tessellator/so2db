@@ -1,8 +1,7 @@
-require 'test/unit'
-require 'mocha'
+require 'minitest/autorun'
 require 'so2db'
 
-class FormatterTest < Test::Unit::TestCase
+class FormatterTest < MiniTest::Unit::TestCase
   include Rake::DSL
 
   def setup

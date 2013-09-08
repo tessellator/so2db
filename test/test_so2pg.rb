@@ -1,8 +1,7 @@
-require 'test/unit'
-require 'mocha'
+require 'minitest/autorun'
 require 'so2pg'
 
-class PgImporterTest < Test::Unit::TestCase
+class PgImporterTest < MiniTest::Unit::TestCase
 
   def setup
     @importer = PgImporter.new(true, true, { :database => "dbname", :dir => "dir" })
