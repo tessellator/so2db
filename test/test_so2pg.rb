@@ -56,7 +56,7 @@ class PgImporterTest < MiniTest::Unit::TestCase
 
 end
 
-class PgOptionsParserTest < Test::Unit::TestCase
+class PgOptionsParserTest < MiniTest::Unit::TestCase
 
   def test_all_options
     host = 'localhost'
