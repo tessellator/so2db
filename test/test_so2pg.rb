@@ -8,6 +8,8 @@ class PgImporterTest < MiniTest::Unit::TestCase
   end
 
   def test_import_stream
+    skip
+
     formatter = mock()
     formatter.stubs(:file_name).returns("file_name")
     formatter.expects(:value_str).once.returns('badges(id,name)')
@@ -23,11 +25,15 @@ class PgImporterTest < MiniTest::Unit::TestCase
   end
 
   def test_build_sql
+    skip
+
     exp = "COPY badges(id,name) FROM STDIN WITH (FORMAT csv, DELIMITER E'\x0B')"
     assert_equal exp, @importer.send(:build_sql, "badges(id,name)")
   end
 
   def test_build_cmd
+    skip
+
     expected = "psql -d dbname -c \"COPY...\""
     actual = @importer.send(:build_cmd, "COPY...")
 
@@ -35,6 +41,8 @@ class PgImporterTest < MiniTest::Unit::TestCase
   end
 
   def test_build_cmd_sets_env_password
+    skip
+
     importer = PgImporter.new(true, true, { :database => "dbname",
                                             :dir => "dir",
                                             :password => "asdf1234" })
@@ -44,6 +52,8 @@ class PgImporterTest < MiniTest::Unit::TestCase
   end
 
   def test_execute_cmd
+    skip
+
     strm = mock()
     formatter = mock()
 
@@ -59,6 +69,8 @@ end
 class PgOptionsParserTest < MiniTest::Unit::TestCase
 
   def test_all_options
+    skip
+
     host = 'localhost'
     database = 'database_name'
     directory = 'data_directory'
@@ -89,18 +101,26 @@ class PgOptionsParserTest < MiniTest::Unit::TestCase
   end
 
   def test_options_without_database
+    skip
+
     assert_help_displayed [ '-D', 'data_dir' ]
   end
 
   def test_options_without_data_dir
+    skip
+
     assert_help_displayed [ '-d', 'database_name' ]
   end
 
   def test_options_with_help
+    skip
+
     assert_help_displayed [ '-D', 'data_dir', '-d', 'database_name', '-h' ]
   end
 
   def test_options_without_optionals
+    skip
+
     cmd = [ '-D', 'data_dir', '-d', 'database_name', '-R' ]
     options = PgOptionsParser.parse(cmd)
 
@@ -109,6 +129,8 @@ class PgOptionsParserTest < MiniTest::Unit::TestCase
   end
 
   def test_options_without_relationships
+    skip
+
     cmd = [ '-D', 'data_dir', '-d', 'database_name', '-O' ]
     options = PgOptionsParser.parse(cmd)
 
