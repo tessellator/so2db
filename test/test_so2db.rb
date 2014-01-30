@@ -1,8 +1,8 @@
-require 'test/unit'
-require 'mocha'
+require 'minitest/unit'
+require 'mocha/mini_test'
 require 'so2db'
 
-class ImporterTest < Test::Unit::TestCase
+class ImporterTest < MiniTest::Unit::TestCase
 
   def test_import_data
     importer = SO2DB::Importer.new

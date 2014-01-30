@@ -1,12 +1,12 @@
-require 'test/unit'
-require 'mocha'
+require 'minitest/unit'
+require 'mocha/mini_test'
 require 'so2db'
 
-class FormatterTest < Test::Unit::TestCase
+class FormatterTest < MiniTest::Unit::TestCase
   include Rake::DSL
 
   def setup
-    @formatter = SO2DB::Formatter.new("/tmp/badges.xml")
+    @formatter = SO2DB::Formatter.new("/tmp/Badges.xml")
   end
 
   def test_initializer_with_default_args
@@ -28,8 +28,8 @@ class FormatterTest < Test::Unit::TestCase
     file = "file"
     outstream = "outstream"
     attrs = [ :a, :b, :c ]
-    SO2DB::Models::Lookup.expects(:get_required_attrs).with("badges").once.returns(attrs)
-    File.expects(:open).with("/tmp/badges.xml").once.returns(file)
+    SO2DB::Models::Lookup.expects(:get_required_attrs).with("Badges").once.returns(attrs)
+    File.expects(:open).with("/tmp/Badges.xml").once.returns(file)
     @formatter.expects(:format_from_stream).with(file, attrs, outstream).once.returns("x")
 
     result = @formatter.format(outstream)
@@ -57,7 +57,7 @@ class FormatterTest < Test::Unit::TestCase
   end
 
   def test_file_name
-    assert_equal "badges.xml", @formatter.file_name
+    assert_equal "Badges.xml", @formatter.file_name
   end
 
   def test_value_str
