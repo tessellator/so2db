@@ -87,9 +87,9 @@ module SO2DB::Models
   # Infrastructure.  Do not call this from your code.
   class Lookup
 
-    @@map = { "badges" => :Badge, "comments" => :Comment, 
-              "posthistory" => :PostHistory, "posts" => :Post, "users" => :User,
-              "votes" => :Vote }
+    @@map = { "Badges" => :Badge, "Comments" => :Comment,
+              "PostHistory" => :PostHistory, "Posts" => :Post, "Users" => :User,
+              "Votes" => :Vote }
 
     def self.find_class(file_name)
       Object.const_get("SO2DB").const_get("Models")
