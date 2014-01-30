@@ -74,6 +74,13 @@ module SO2DB
         t.integer :favorite_count
       end
 
+      create_table :post_links do |t|
+        t.timestamp :creation_date
+        t.integer :post_id
+        t.integer :related_post_id
+        t.integer :link_type_id
+      end
+
       create_table :post_history do |t|
         t.integer :post_history_type_id
         t.integer :post_id
@@ -112,7 +119,7 @@ module SO2DB
     end
 
     def down
-      [:votes, :badges, :comments, :post_history, :posts, :users].each do |t|
+      [:votes, :badges, :comments, :post_history, :post_links, :posts, :users].each do |t|
         drop_table t
       end
     end
@@ -131,6 +138,9 @@ module SO2DB
       # The following relationship is currently suspect, see
       # http://meta.stackoverflow.com/questions/131975/what-are-the-posttypeids-in-the-2011-12-data-dump
       add_fk(:posts, :posts, column: 'accepted_answer_id')
+
+      add_fk(:post_links, :posts)
+      add_fk(:post_links, :posts, column: 'related_post_id')
       
       add_fk(:posts, :users, column: 'owner_user_id')
       add_fk(:posts, :users, column: 'last_editor_user_id')
@@ -152,6 +162,7 @@ module SO2DB
       create_post_history_types
       create_close_reasons
       create_vote_types
+      create_post_link_types
     end
 
     def create_post_types
@@ -265,6 +276,21 @@ module SO2DB
       end
     end
 
+    def create_post_link_types
+      create_table :post_link_types do |t|
+        t.string :name, :limit => 50
+      end
+
+      { 1 => "Linked",
+        3 => "Duplicate"
+      }.each do |k,v|
+        lt = Models::PostLinkType.new
+        lt.id = k
+        lt.name = v
+        lt.save
+      end
+    end
+
   end
 
   class CreateOptionalRelationships < ActiveRecord::Migration
@@ -275,6 +301,7 @@ module SO2DB
       add_fk(:post_history, :post_history_types)
       add_fk(:post_history, :close_reasons)
       add_fk(:votes, :vote_types)
+      add_fk(:post_links, :post_link_types, column: 'link_type_id')
     end
   end
 

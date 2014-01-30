@@ -26,6 +26,12 @@ module SO2DB::Models
     end
   end
 
+  class PostLink < ActiveRecord::Base
+    def self.exported_fields
+      return [ :id, :creation_date, :post_id, :related_post_id, :link_type_id ]
+    end
+  end
+
   class PostHistory < ActiveRecord::Base
     self.table_name = "post_history"
 
@@ -54,6 +60,9 @@ module SO2DB::Models
   class PostType < ActiveRecord::Base
   end
 
+  class PostLinkType < ActiveRecord::Base
+  end
+
   class PostHistoryType < ActiveRecord::Base
   end
 
@@ -67,7 +76,8 @@ module SO2DB::Models
   class Lookup
 
     @@map = { "badges" => :Badge, "comments" => :Comment,
-              "posthistory" => :PostHistory, "posts" => :Post, "users" => :User,
+              "posthistory" => :PostHistory, "posts" => :Post,
+              "postlinks" => :PostLink, "users" => :User,
               "votes" => :Vote }
 
     def self.find_class(file_name)
