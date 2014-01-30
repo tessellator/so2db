@@ -9,10 +9,8 @@ module SO2DB
 
     def add_fk(from_table, to_table, options={})
       begin
-      AddForeignKeyMigration.new(from_table, to_table, options).up
+        AddForeignKeyMigration.new(from_table, to_table, options).up
       rescue
-	puts $!.inspect
-	#puts $@
         s = "Error creating foreign key from #{from_table} to #{to_table}"
         s << " on column #{options[:column]}" if options.has_key? :column
         puts s
@@ -104,7 +102,6 @@ module SO2DB
       end
 
       create_table :votes do |t|
-        #t.primary_key :id
         t.integer :post_id
         t.integer :vote_type_id
         t.timestamp :creation_date
@@ -159,7 +156,6 @@ module SO2DB
 
     def create_post_types
       create_table :post_types do |t|
-        #t.primary_key :id
         t.string :type_name, :limit => 24
       end
 
@@ -181,7 +177,6 @@ module SO2DB
 
     def create_post_history_types
       create_table :post_history_types do |t|
-        #t.primary_key :id
         t.string :name, :limit => 50
       end
 
@@ -225,7 +220,6 @@ module SO2DB
 
     def create_close_reasons
       create_table :close_reasons do |t|
-        #t.primary_key :id
         t.string :name, :limit => 50
       end
 
@@ -246,7 +240,6 @@ module SO2DB
 
     def create_vote_types
       create_table :vote_types do |t|
-        #t.primary_key :id
         t.string :name, :limit => 50
       end
 
