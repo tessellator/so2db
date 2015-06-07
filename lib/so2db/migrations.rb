@@ -154,7 +154,7 @@ module SO2DB
 
 
     def down
-      [:votes, :badges, :comments, :post_history, :posts, :users, :post_links].each do |t|
+      [:votes, :badges, :comments, :post_history, :posts, :users, :post_links, :tags].each do |t|
         drop_table t
       end
     end
