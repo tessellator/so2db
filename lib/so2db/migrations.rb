@@ -64,6 +64,8 @@ module SO2DB
         t.integer :user_id
         t.string :name, :limit => 50
         t.timestamp :date
+        t.integer :class
+        t.boolean :tag_based
       end
 
       create_table :comments do |t|
@@ -123,6 +125,7 @@ module SO2DB
         t.integer :views
         t.integer :up_votes
         t.integer :down_votes
+        t.integer :account_id
       end
 
       create_table :votes do |t|
@@ -134,10 +137,24 @@ module SO2DB
         t.integer :bounty_amount
       end
 
+      create_table :post_links do |t|
+        t.date :creation_date
+        t.integer :post_id
+        t.integer :related_post_id
+        t.integer :link_type_id
+      end
+
+      create_table :tags do |t|
+        t.text :tag_name
+        t.integer :count
+        t.integer :excerpt_post_id
+        t.integer :wiki_post_id
+      end
     end
 
+
     def down
-      [:votes, :badges, :comments, :post_history, :posts, :users].each do |t|
+      [:votes, :badges, :comments, :post_history, :posts, :users, :post_links].each do |t|
         drop_table t
       end
     end

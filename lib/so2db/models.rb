@@ -25,7 +25,7 @@ module SO2DB::Models
 
   class Badge < ActiveRecord::Base
     def self.exported_fields
-      return [ :id, :user_id, :name, :date ]
+      return [ :id, :user_id, :name, :date, :class, :tag_based ]
     end
   end
 
@@ -61,7 +61,7 @@ module SO2DB::Models
     def self.exported_fields
       return [ :id, :reputation, :creation_date, :display_name, :email_hash,
                :last_access_date, :website_url, :location, :age, :about_me, 
-               :views, :up_votes, :down_votes ]
+               :views, :up_votes, :down_votes, :account_id ]
     end
   end
 
@@ -69,6 +69,18 @@ module SO2DB::Models
     def self.exported_fields
       return [ :id, :post_id, :vote_type_id, :creation_date, :user_id, 
                :bounty_amount ]
+    end
+  end
+
+  class PostLink < ActiveRecord::Base
+    def self.exported_fields
+      return [ :id, :creation_date, :post_id, :related_post_id, :link_type_id ]
+    end
+  end
+
+  class Tag < ActiveRecord::Base
+    def self.exported_fields
+      return [ :id, :tag_name, :count, :excerpt_post_id, :wiki_post_id ]
     end
   end
 
@@ -89,7 +101,7 @@ module SO2DB::Models
 
     @@map = { "Badges" => :Badge, "Comments" => :Comment,
               "PostHistory" => :PostHistory, "Posts" => :Post, "Users" => :User,
-              "Votes" => :Vote }
+              "Votes" => :Vote, "PostLinks" => :PostLink, "Tags" => :Tag }
 
     def self.find_class(file_name)
       Object.const_get("SO2DB").const_get("Models")
@@ -100,7 +112,5 @@ module SO2DB::Models
       raw = find_class(file_name).send :exported_fields
       return raw.map {|f| f.to_s.camelize.sub(/Guid/, 'GUID')}
     end
-
   end
-
 end
