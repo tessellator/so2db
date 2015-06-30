@@ -2,7 +2,7 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name = 'so2db'
-  s.version = '0.1.0'
+  s.version = '0.2.0'
   s.date = '2012-08-08'
   s.summary = 'StackOverflow Data Dump Import Utilities'
   s.description = <<-EOF
