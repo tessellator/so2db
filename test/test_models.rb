@@ -1,7 +1,7 @@
-require 'test/unit'
+require 'minitest/autorun'
 require 'so2db'
 
-class LookupTest < Test::Unit::TestCase
+class LookupTest < Minitest::Test
   include Rake::DSL
 
   def test_lookup_badges
@@ -10,11 +10,11 @@ class LookupTest < Test::Unit::TestCase
 
   def test_required_attrs_badges
     attrs = SO2DB::Models::Lookup::get_required_attrs("badges")
-    assert_equal [ "Id", "UserId", "Name", "Date" ], attrs
+    assert_equal [ "Id", "UserId", "Name", "Date", "Class", "TagBased" ], attrs
   end
 
   def test_guid_capitalization
     attrs = SO2DB::Models::Lookup::get_required_attrs("posthistory")
-    assert_block { attrs.include? 'RevisionGUID' }
+    assert(attrs.include? 'RevisionGUID')
   end
 end

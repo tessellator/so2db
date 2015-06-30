@@ -1,8 +1,8 @@
-require 'test/unit'
-require 'mocha'
+require 'minitest/autorun'
+require 'mocha/mini_test'
 require 'so2db'
 
-class FormatterTest < Test::Unit::TestCase
+class FormatterTest < Minitest::Test
   include Rake::DSL
 
   def setup
@@ -61,7 +61,7 @@ class FormatterTest < Test::Unit::TestCase
   end
 
   def test_value_str
-    assert_equal "badges(date,id,name,user_id)", @formatter.value_str
+    assert_equal "badges(class,date,id,name,tag_based,user_id)", @formatter.value_str
   end
 
   def create_node_stub(name, node_type)
