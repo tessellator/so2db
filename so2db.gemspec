@@ -2,8 +2,8 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name = 'so2db'
-  s.version = '0.2.0'
-  s.date = '2012-08-08'
+  s.version = '0.2.1'
+  s.date = '2015-06-29'
   s.summary = 'StackOverflow Data Dump Import Utilities'
   s.description = <<-EOF
     SO2DB provides an API for building StackOverflow data dump importers.  It
