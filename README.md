@@ -1,6 +1,8 @@
 # SO2DB
 SO2DB provides an API for importing the Stack Overflow/Stack Exchange data dumps into a database. It also provides a PostgreSQL import utility (so2pg) out of the box.
 
+**This project is no longer maintained**
+
 
 # Using the PostgreSQL Import Utility
 1.  Download a [Stack Exchange Data Dump](http://www.clearbits.net/creators/146-stack-exchange-data-dump) and extract the data set that you want to import (e.g., math.stackexchange.com.7z).
